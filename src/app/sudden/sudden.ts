@@ -113,6 +113,8 @@ export class Sudden {
 
   changeHint() {
     this.isHint = true;
+    let audio = new Audio('assets/sounds/incorrect.mp3');
+    audio.play();
     setTimeout(() => {
       this.isHint = false;
     }, 1000);
