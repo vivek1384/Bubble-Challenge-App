@@ -72,9 +72,11 @@ button {
     width: 56px;
     justify-content: center;
     align-items: center;
-    background: #000;
+    background: linear-gradient(#8da8d7, #bea0a0);
     border-radius: 50%;
-    color: #fff;
+    color: #111cb8;
+    font-weight: bold;
+    font-size: 22px;
     cursor: pointer;
 }
 

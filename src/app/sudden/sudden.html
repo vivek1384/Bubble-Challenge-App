@@ -24,7 +24,7 @@
             @if(isHint){
             @for (item of boxNum; track $index) {
             <div class="box" (click)="onBoxClick(item)"
-                [ngStyle]="hit == item ? {'background-color' : 'red'} : {'background-color' : 'black'} ">{{item}}</div>
+                [ngStyle]="hit == item ? {'background' : 'red'} : {'background' : 'black'} ">{{item}}</div>
             }
             }@else {
             @for (item of boxNum; track $index) {
