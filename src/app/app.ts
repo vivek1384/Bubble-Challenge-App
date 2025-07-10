@@ -8,5 +8,5 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.css',
 })
 export class App {
-  protected title = 'Bubbele';
+  protected title = 'bubble-pop-challange';
 }
