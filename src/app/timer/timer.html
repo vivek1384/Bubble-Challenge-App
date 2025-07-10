@@ -1,0 +1,52 @@
+<div class="container">
+    <h1>Game Mode : Timer Mode ⏱️</h1>
+    <div class="panel">
+        <div class="top">
+            <div class="one" (click)="restartGame()" style="cursor: pointer;"><span>Restart Game</span></div>
+            <div class="one">Score : <span>{{score}}</span> </div>
+            <div class="one">Timer :
+                @if (count == "0") {
+                <select [(ngModel)]="count" name="count">
+                    <option value="0" selected>Select time </option>
+                    <option value="30">30</option>
+                    <option value="60">60</option>
+                    <option value="120">120</option>
+                </select>
+                }@else {
+                }
+                <span>{{count}}</span>
+            </div>
+            <div class="one">Hit : <span>{{hit}}</span></div>
+            <div class="one">Difficulty :
+                <select name="difficulty" id="" [(ngModel)]="difficulty">
+                    <option value="easy" selected>Easy</option>
+                    <option value="medium">Medium</option>
+                    <option value="hard">Hard</option>
+                </select>
+            </div>
+            <div class="one" (click)="changeHint()" style="cursor: pointer;"><span><fa-icon
+                        [icon]="icon1"></fa-icon></span>
+            </div>
+        </div>
+        <div class="bottom" id="bottom">
+            @if (boxNum.length > 0 ) {
+            @if(isHint){
+            @for (item of boxNum; track $index) {
+            <div class="box" (click)="onBoxClick(item)"
+                [ngStyle]="hit == item ? {'background-color' : 'red'} : {'background-color' : 'black'} ">{{item}}</div>
+            }
+            }@else {
+            @for (item of boxNum; track $index) {
+            <div class="box" (click)="onBoxClick(item)">{{item}}</div>
+            }
+
+            }
+            }@else {
+            <div class="box1" (click)="startGame()">
+                <p>{{text}} </p> <br>
+                <p>{{text2}}</p>
+            </div>
+            }
+        </div>
+    </div>
+</div>

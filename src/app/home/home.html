@@ -1,0 +1,18 @@
+<div class="container">
+  <h1>A Bubble Game develope with ❤️ by VIVEK DUDHATRA.</h1>
+
+  <div class="container-n">
+    <h1>Bubble Challange 🎮</h1>
+    <h3>Select game mode and get ready!</h3>
+    <div class="select">
+      <label for="">Choose game mode :</label>
+      <select name="gameMode" [(ngModel)]="gameMode">
+        <option value="none" selected hidden disabled >Select Mode</option>
+        @for (item of gameModes; track $index) {
+        <option value={{item}}>{{item}}</option>
+        }
+      </select>
+    </div>
+    <button (click)="onReady()">Ready!</button>
+  </div>
+</div>

@@ -1,0 +1,77 @@
+.container {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    background: linear-gradient(#d9e7ff, #ffffff);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2.5rem;
+    color: #5292ff;
+
+}
+
+.container h1 {
+    text-align: center;
+    color: #5292ff;
+}
+
+.container-n {
+    height: fit-content;
+    width: fit-content;
+    /* margin: auto; */
+    border: 2px solid #7eadff;
+    padding: 2rem;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.container-n h1 {
+    color: #5292ff;
+    text-align: center;
+}
+
+.container-n h3 {
+    font-weight: 600;
+    text-align: center;
+}
+
+.container-n .select {
+    width: 350px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+}
+
+.container-n .select select {
+    font-size: 18px;
+    padding: 4px;
+    padding-left: 12px;
+    width: 190px;
+    outline: none;
+    border: none;
+    border-bottom: 2px solid #5292ff;
+    color: #5292ff;
+}
+
+.container-n button {
+    font-size: 24px;
+    background: #f4f8ff;
+    padding: 6px;
+    color: #5292ff;
+    border: 2px solid #5292ff;
+    border-radius: 7px;
+    margin-top: 6px;
+}
+
+.container-n button:hover {
+    background: #5292ff;
+    color: #f4f8ff;
+    cursor: pointer;
+}
