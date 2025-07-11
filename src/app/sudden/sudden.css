@@ -90,3 +90,67 @@ button {
     text-align: center;
     gap: 10px;
 }
+
+@media screen and (width < 500px) {
+
+    .container {
+        justify-content: start;
+    }
+
+    .container h1 {
+        font-size: 20px;
+        margin-top: 1rem;
+    }
+
+    .panel {
+        display: flex;
+        flex-direction: row;
+        width: 95%;
+    }
+
+    .panel .top {
+        flex-direction: column;
+        width: 25%;
+        overflow: hidden;
+        height: 100%;
+        align-items: center;
+        padding: 0;
+        padding-right: 4px;
+    }
+
+    .panel .top .one {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: fit-content;
+    }
+
+    .panel .top select {
+        width: 80px;
+    }
+
+    .panel .top .one span {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    .panel .bottom {
+        width: 75%;
+        height: 100%;
+    }
+
+    .bottom .box {
+        height: 43px;
+        width: 43px;
+        font-size: 17px;
+    }
+
+    .bottom .box1 {
+        font-size: 15px;
+        padding: 15px 11px;
+        gap: 6px;
+        width: 80%;
+    }
+}

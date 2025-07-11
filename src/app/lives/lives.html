@@ -3,8 +3,8 @@
     <div class="panel">
         <div class="top">
             <div class="one" (click)="restartGame()" style="cursor: pointer;"><span>Restart Game</span></div>
-            <div class="one">Score : <span>{{score}}</span> </div>
-            <div class="one">Lives :
+            <div class="one">Score <span>{{score}}</span> </div>
+            <div class="one">Lives
                 @for (item of count; track $index) {
                 @if(item == '1'){
                 <span>❤️</span>
@@ -15,8 +15,8 @@
                 }
                 }
             </div>
-            <div class="one">Hit : <span>{{hit}}</span></div>
-            <div class="one">Difficulty :
+            <div class="one">Hit <span>{{hit}}</span></div>
+            <div class="one">Difficulty 
                 <select name="difficulty" id="" [(ngModel)]="difficulty">
                     <option value="easy" selected>Easy</option>
                     <option value="medium">Medium</option>
@@ -42,7 +42,7 @@
 
             }
             }@else {
-            <div class="box1" (click)="startGame()">
+            <div class="box1" (click)="restartGame()">
                 <p>{{text}} </p> <br>
                 <p>{{text2}}</p>
             </div>

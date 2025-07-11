@@ -12,7 +12,22 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './sudden.css',
 })
 export class Sudden {
-  constructor(private toastr: ToastrService) {}
+  constructor(private toastr: ToastrService) {
+    this.checkSize();
+  }
+
+  checkSize() {
+    const size = window.innerWidth;
+    if (size < 500) {
+      console.log('Mobile.');
+      this.isMobile = true;
+    } else {
+      console.log('Laptop');
+      this.isMobile = false;
+    }
+  }
+
+  isMobile = false;
 
   boxNum: any = [];
   hit: any = 0;
@@ -62,20 +77,39 @@ export class Sudden {
 
   check() {
     if (!this.boxNum.includes(this.hit)) {
-      this.toastr.warning('No match available, suffeling again.');
+      this.toastr.warning('No match available, suffeling again.', '', {
+        positionClass: 'toast-bottom-center',
+        timeOut: 1000,
+      });
       this.boxNum = [];
-      for (let i = 0; i <= 125; i++) {
-        let num = Math.floor(Math.random() * this.fromTo);
-        this.boxNum.push(num);
+      if (this.isMobile) {
+        for (let i = 0; i <= 49; i++) {
+          let num = Math.floor(Math.random() * this.fromTo);
+          this.boxNum.push(num);
+        }
+      } else {
+        for (let i = 0; i <= 125; i++) {
+          let num = Math.floor(Math.random() * this.fromTo);
+          this.boxNum.push(num);
+        }
       }
-      this.check();
+      setTimeout(() => {
+        this.check();
+      }, 1000);
     }
   }
 
   gameFunc() {
-    for (let i = 0; i <= 125; i++) {
-      let num = Math.floor(Math.random() * this.fromTo);
-      this.boxNum.push(num);
+    if (this.isMobile) {
+      for (let i = 0; i <= 49; i++) {
+        let num = Math.floor(Math.random() * this.fromTo);
+        this.boxNum.push(num);
+      }
+    } else {
+      for (let i = 0; i <= 125; i++) {
+        let num = Math.floor(Math.random() * this.fromTo);
+        this.boxNum.push(num);
+      }
     }
     this.hit = Math.floor(Math.random() * this.fromTo);
   }
@@ -89,16 +123,36 @@ export class Sudden {
       this.totalRight++;
       this.boxNum = [];
       this.combo += 1;
+      this.toastr.success('+5', '', {
+        positionClass: 'toast-bottom-center',
+        timeOut: 1000,
+      });
       if (this.combo >= 3) {
-        this.toastr.success('You hit 3 straight right got 10 bonus point.');
+        this.toastr.success(
+          'You hit 3 straight right got 10 bonus point.',
+          '',
+          {
+            positionClass: 'toast-bottom-center',
+            timeOut: 1000,
+          }
+        );
         this.score += 10;
         this.combo = 0;
       }
-      this.toastr.success('+5');
-      for (let i = 0; i <= 125; i++) {
-        let num = Math.floor(Math.random() * this.fromTo);
-        this.boxNum.push(num);
+      if (this.isMobile) {
+        for (let i = 0; i <= 49; i++) {
+          let num = Math.floor(Math.random() * this.fromTo);
+          this.boxNum.push(num);
+        }
+      } else {
+        for (let i = 0; i <= 125; i++) {
+          let num = Math.floor(Math.random() * this.fromTo);
+          this.boxNum.push(num);
+        }
       }
+      setTimeout(() => {
+        this.check();
+      }, 1000);
     } else {
       let audio = new Audio('assets/sounds/incorrect.mp3');
       audio.play();
