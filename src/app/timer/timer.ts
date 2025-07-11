@@ -12,7 +12,22 @@ import { faLightbulb } from '@fortawesome/free-solid-svg-icons';
   styleUrl: './timer.css',
 })
 export class Timer {
-  constructor(private toastr: ToastrService) {}
+  constructor(private toastr: ToastrService) {
+    this.checkSize();
+  }
+
+  checkSize() {
+    const size = window.innerWidth;
+    if (size < 500) {
+      console.log('Mobile.');
+      this.isMobile = true;
+    } else {
+      console.log('Laptop');
+      this.isMobile = false;
+    }
+  }
+
+  isMobile = false;
 
   boxNum: any = [];
 
@@ -72,21 +87,41 @@ export class Timer {
   }
 
   check() {
+    console.log('Check hit.')
     if (!this.boxNum.includes(this.hit)) {
-      this.toastr.warning('No match available, suffeling again.');
+      this.toastr.warning('No match available, suffeling again.', '', {
+        positionClass: 'toast-bottom-center',
+        timeOut: 1000,
+      });
       this.boxNum = [];
-      for (let i = 0; i <= 125; i++) {
-        let num = Math.floor(Math.random() * this.fromTo);
-        this.boxNum.push(num);
+      if (this.isMobile) {
+        for (let i = 0; i <= 49; i++) {
+          let num = Math.floor(Math.random() * this.fromTo);
+          this.boxNum.push(num);
+        }
+      } else {
+        for (let i = 0; i <= 125; i++) {
+          let num = Math.floor(Math.random() * this.fromTo);
+          this.boxNum.push(num);
+        }
       }
-      this.check();
+      setTimeout(() => {
+        this.check();
+      }, 1000);
     }
   }
 
   gameFunc() {
-    for (let i = 0; i <= 125; i++) {
-      let num = Math.floor(Math.random() * this.fromTo);
-      this.boxNum.push(num);
+    if (this.isMobile) {
+      for (let i = 0; i <= 49; i++) {
+        let num = Math.floor(Math.random() * this.fromTo);
+        this.boxNum.push(num);
+      }
+    } else {
+      for (let i = 0; i <= 125; i++) {
+        let num = Math.floor(Math.random() * this.fromTo);
+        this.boxNum.push(num);
+      }
     }
     this.hit = Math.floor(Math.random() * this.fromTo);
 
@@ -113,17 +148,36 @@ export class Timer {
       this.score += 5;
       this.boxNum = [];
       this.combo += 1;
+      this.toastr.success('+5', '', {
+        positionClass: 'toast-bottom-center',
+        timeOut: 1000,
+      });
       if (this.combo >= 3) {
-        this.toastr.success('You hit 3 straight right got 10 bonus point.');
+        this.toastr.success(
+          'You hit 3 straight right got 10 bonus point.',
+          '',
+          {
+            positionClass: 'toast-bottom-center',
+            timeOut: 1000,
+          }
+        );
         this.score += 10;
         this.combo = 0;
       }
-      this.toastr.success('+5');
-      for (let i = 0; i <= 125; i++) {
-        let num = Math.floor(Math.random() * this.fromTo);
-        this.boxNum.push(num);
+      if (this.isMobile) {
+        for (let i = 0; i <= 49; i++) {
+          let num = Math.floor(Math.random() * this.fromTo);
+          this.boxNum.push(num);
+        }
+      } else {
+        for (let i = 0; i <= 125; i++) {
+          let num = Math.floor(Math.random() * this.fromTo);
+          this.boxNum.push(num);
+        }
       }
-      this.check();
+      setTimeout(() => {
+        this.check();
+      }, 1000);
     } else {
       this.totalWrong++;
       this.isHint = true;
@@ -133,13 +187,23 @@ export class Timer {
       this.score -= 5;
       setTimeout(() => {
         this.boxNum = [];
-        this.toastr.error('-5');
-        for (let i = 0; i <= 125; i++) {
-          let num = Math.floor(Math.random() * this.fromTo);
-          this.boxNum.push(num);
+        this.toastr.error('-5', '', {
+          positionClass: 'toast-bottom-center',
+          timeOut: 1000,
+        });
+        if (this.isMobile) {
+          for (let i = 0; i <= 49; i++) {
+            let num = Math.floor(Math.random() * this.fromTo);
+            this.boxNum.push(num);
+          }
+        } else {
+          for (let i = 0; i <= 125; i++) {
+            let num = Math.floor(Math.random() * this.fromTo);
+            this.boxNum.push(num);
+          }
         }
         this.isHint = false;
-        this.check();
+        // this.check();
       }, 500);
     }
   }

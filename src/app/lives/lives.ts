@@ -12,7 +12,22 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './lives.css',
 })
 export class Lives {
-  constructor(private toastr: ToastrService) {}
+  constructor(private toastr: ToastrService) {
+    this.checkSize();
+  }
+
+  checkSize() {
+    const size = window.innerWidth;
+    if (size < 500) {
+      console.log('Mobile.');
+      this.isMobile = true;
+    } else {
+      console.log('Laptop');
+      this.isMobile = false;
+    }
+  }
+
+  isMobile = false;
 
   boxNum: any = [];
   count: string[] = ['1', '1', '1'];
@@ -43,6 +58,7 @@ export class Lives {
     this.boxNum = [];
     this.count = ['1', '1', '1'];
     this.count2 = 2;
+    this.score = 0;
     let audio = new Audio('assets/sounds/loading.mp3');
     audio.play();
     if (this.difficulty == 'easy') {
@@ -54,7 +70,7 @@ export class Lives {
       this.gameFunc();
       this.check();
     } else if (this.difficulty == 'hard') {
-      this.fromTo = 50;
+      this.fromTo = 49;
       this.gameFunc();
       this.check();
     }
@@ -67,20 +83,39 @@ export class Lives {
 
   check() {
     if (!this.boxNum.includes(this.hit)) {
-      this.toastr.warning('No match available, suffeling again.');
+      this.toastr.warning('No match available, suffeling again.', '', {
+        positionClass: 'toast-bottom-center',
+        timeOut: 1000,
+      });
       this.boxNum = [];
-      for (let i = 0; i <= 125; i++) {
-        let num = Math.floor(Math.random() * this.fromTo);
-        this.boxNum.push(num);
+      if (this.isMobile) {
+        for (let i = 0; i <= 49; i++) {
+          let num = Math.floor(Math.random() * this.fromTo);
+          this.boxNum.push(num);
+        }
+      } else {
+        for (let i = 0; i <= 125; i++) {
+          let num = Math.floor(Math.random() * this.fromTo);
+          this.boxNum.push(num);
+        }
       }
-      this.check();
+      setTimeout(() => {
+        this.check();
+      }, 1000);
     }
   }
 
   gameFunc() {
-    for (let i = 0; i <= 125; i++) {
-      let num = Math.floor(Math.random() * this.fromTo);
-      this.boxNum.push(num);
+    if (this.isMobile) {
+      for (let i = 0; i <= 49; i++) {
+        let num = Math.floor(Math.random() * this.fromTo);
+        this.boxNum.push(num);
+      }
+    } else {
+      for (let i = 0; i <= 125; i++) {
+        let num = Math.floor(Math.random() * this.fromTo);
+        this.boxNum.push(num);
+      }
     }
     this.hit = Math.floor(Math.random() * this.fromTo);
   }
@@ -94,16 +129,36 @@ export class Lives {
       this.totalRight++;
       this.boxNum = [];
       this.combo += 1;
+      this.toastr.success('+5', '', {
+        positionClass: 'toast-bottom-center',
+        timeOut: 1000,
+      });
       if (this.combo >= 3) {
-        this.toastr.success('You hit 3 straight right got 10 bonus point.');
+        this.toastr.success(
+          'You hit 3 straight right got 10 bonus point.',
+          '',
+          {
+            positionClass: 'toast-bottom-center',
+            timeOut: 1000,
+          }
+        );
         this.score += 10;
         this.combo = 0;
       }
-      this.toastr.success('+5');
-      for (let i = 0; i <= 125; i++) {
-        let num = Math.floor(Math.random() * this.fromTo);
-        this.boxNum.push(num);
+      if (this.isMobile) {
+        for (let i = 0; i <= 49; i++) {
+          let num = Math.floor(Math.random() * this.fromTo);
+          this.boxNum.push(num);
+        }
+      } else {
+        for (let i = 0; i <= 125; i++) {
+          let num = Math.floor(Math.random() * this.fromTo);
+          this.boxNum.push(num);
+        }
       }
+      setTimeout(() => {
+        this.check();
+      }, 1000);
     } else {
       this.score -= 5;
       this.totalWrong++;
@@ -115,10 +170,20 @@ export class Lives {
       this.count2--;
       setTimeout(() => {
         this.boxNum = [];
-        this.toastr.error('-5');
-        for (let i = 0; i <= 125; i++) {
-          let num = Math.floor(Math.random() * this.fromTo);
-          this.boxNum.push(num);
+        this.toastr.error('-5', '', {
+          positionClass: 'toast-bottom-center',
+          timeOut: 1000,
+        });
+        if (this.isMobile) {
+          for (let i = 0; i <= 49; i++) {
+            let num = Math.floor(Math.random() * this.fromTo);
+            this.boxNum.push(num);
+          }
+        } else {
+          for (let i = 0; i <= 125; i++) {
+            let num = Math.floor(Math.random() * this.fromTo);
+            this.boxNum.push(num);
+          }
         }
         this.isHint = false;
         if (this.count2 == -1) {
